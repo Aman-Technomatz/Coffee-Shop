@@ -1,17 +1,29 @@
-<div id="<%= dom_id item %>">
-  <p>
-    <strong>Name:</strong>
-    <%= item.name %>
-  </p>
-
-  <p>
-    <strong>Price:</strong>
-    <%= item.price %>
-  </p>
-
-  <p>
-    <strong>Availability:</strong>
-    <%= item.availability %>
-  </p>
-
-</div>
+<table class="table caption-top" id="<% dom_id item %>">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Availability</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td scope="col"><%= item.name %></td>
+      <td scope="col">
+        <%= item.price %>
+      </td>
+      <td>
+        <%= item.availability %>
+      </td>
+      <th scope="col">
+        <%= link_to "Edit this item", edit_item_path(@item) %> |
+        <%= link_to "Back to items", items_path %> |
+            <%= link_to "Destroy item", [@item], data: {
+                                      turbo_method: :delete,
+                                      turbo_confirm: "Are you sure?"
+                                      } %>
+      </th>
+    </tr>
+  </tbody>
+</table>

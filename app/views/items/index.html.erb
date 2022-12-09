@@ -1,14 +1,21 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Items</h1>
-
-<div id="items">
-  <% @items.each do |item| %>
-    <%= render item %>
-    <p>
-      <%= link_to "Show this item", item %>
-    </p>
-  <% end %>
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col" class='border' >Name</th>
+        <th scope="col" class='border' >Price</th>
+        <th scope="col" class='border' >Action</th>
+      </tr>
+    </thead>
+    <%# ToDO: search render collection %>
+    <% @items.each do |item| %>
+      <tbody>
+          <tr >
+            <th scope="col" class='border' ><%= item.name %></th>
+            <td scope="col" class='border' ><%= item.price %></td>
+            <td scope="col" class='border' ><%= link_to "Show this item", item %></td>
+          </tr>
+      </tbody>
+    <%end%>
+  </table>
 </div>
-
-<%= link_to "New item", new_item_path %>

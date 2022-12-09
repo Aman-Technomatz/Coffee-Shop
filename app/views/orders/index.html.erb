@@ -1,0 +1,33 @@
+<% @orders.each do |order| %>
+
+  <div class="container">
+    <table class="table">
+      <thead>
+      <tr class='border'>
+        <th><%= link_to "Order No.#{order.id}", order  %></th>
+      </tr>
+        <tr class='border'>
+          <th scope="col" class='border' >Name</th>
+          <th scope="col" class='border' >Price</th>
+          <th scope="col" class='border' >Quantity</th>
+          <th scope="col" class='border' >Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% order.order_items.each do |order_item| %>
+          <tr >
+            <th scope="col" class='border' ><%= order_item.item.name %></th>
+            <td scope="col" class='border' ><%= order_item.item.price %></td>
+            <td scope="col" class='border' ><%= order_item.quantity %></td>
+            <td scope="col" class='border' ><%= order_item.total_price %></td>
+          </tr>
+        <% end %>
+        <tr class='border'>
+          <th colspan='3' class='border'>Grand Total</th>
+          <td colspan='2' class='border'><%= '%.2f' % order.grand_total %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+<%end%>

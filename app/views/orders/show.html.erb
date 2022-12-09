@@ -1,0 +1,37 @@
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col" colspan='4' class='border' >Action</th>
+        <td scope="col" colspan='2' class='border' >
+          <%= link_to "Edit", edit_order_path(@order) %>
+            |
+          <%= link_to "Destroy", order_path(@order), data: {
+            turbo_method: :delete,
+            turbo_confirm: "Are you sure?"
+          } %>
+        </td>
+      </tr>
+      <tr>
+        <th scope="col" class='border' >Name</th>
+        <th scope="col" class='border' >Price</th>
+        <th scope="col" class='border' >Quantity</th>
+        <th scope="col" class='border' >Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @order.order_items.each do |order_item| %>
+        <tr >
+          <th scope="col" class='border'><%= order_item.item.name %></th>
+          <td scope="col" class='border' ><%= order_item.item.price %></td>
+          <td scope="col" class='border' ><%= order_item.quantity %></td>
+          <td scope="col" class='border' ><%= order_item.total_price %></td>
+        </tr>
+      <% end %>
+      <tr class='border'>
+        <th colspan='4' class='border'>Grand Total</th>
+        <td colspan='2' class='border'><%= '%.2f' % @order.grand_total %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

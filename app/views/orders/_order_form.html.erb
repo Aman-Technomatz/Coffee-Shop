@@ -1,0 +1,12 @@
+<%= form_with model: @order do |order_form| %>
+  <div id="tasks"  style="display: flex">
+    <%= order_form.fields_for :order_items do |builder| %>
+      <%= render 'order_item_fields', order_form: builder %>
+    <% end %>
+  </div>
+
+  <div class="card-link">
+    <%= link_to_add_order_item('add order_item', order_form, :order_items) %>
+  </div>
+  <%= order_form.submit  :class => 'btn btn-primary' %>
+<% end %>
