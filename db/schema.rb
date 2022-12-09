@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_09_065621) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_09_072157) do
   create_table "discounts", force: :cascade do |t|
     t.integer "base_item_id"
     t.integer "child_item_id"
@@ -23,10 +23,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_065621) do
 
   create_table "items", force: :cascade do |t|
     t.string "name"
-    t.integer "price"
+    t.float "price"
     t.boolean "availability"
+    t.integer "tax_category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["tax_category_id"], name: "index_items_on_tax_category_id"
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -47,12 +49,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_065621) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "taxes", force: :cascade do |t|
+  create_table "tax_categories", force: :cascade do |t|
     t.float "tax_rate"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "items", "tax_categories"
   add_foreign_key "order_items", "items"
   add_foreign_key "order_items", "orders"
 end

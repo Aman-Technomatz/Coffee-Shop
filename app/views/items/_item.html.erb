@@ -3,6 +3,7 @@
     <tr>
       <th>Name</th>
       <th>Price</th>
+      <th>Tax Percent</th>
       <th>Availability</th>
       <th>Action</th>
     </tr>
@@ -12,6 +13,9 @@
       <td scope="col"><%= item.name %></td>
       <td scope="col">
         <%= item.price %>
+      </td>
+      <td>
+        <%= item.tax_category.tax_rate %>
       </td>
       <td>
         <%= item.availability %>

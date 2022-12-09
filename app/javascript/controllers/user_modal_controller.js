@@ -18,6 +18,21 @@ export default class extends Controller {
         $('#tasks').append($(this).data('fields').replace(regexp, time));
         return event.preventDefault();
       });
+
+      // $(function () {
+      //   $("#onchange").on('change', function(){
+      //     var value = $(".select").val();
+      //     var quantity = $(".quantity").val();
+      //     var dis = $("#discounts").data('discounts');
+      //     var disc_quant = $("#discounts").data('disc_quant');
+      //     for(var i = 0; i <= dis.length; i++){
+      //       if (value == dis[i])// && quantity == disc_quant ) {
+      //       {
+
+      //       }
+      //     }
+      //   });
+      // });
     });
   }
 }

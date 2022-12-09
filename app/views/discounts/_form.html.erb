@@ -13,12 +13,7 @@
 
   <div>
     <%= form.label :base_item_id, style: "display: block" %>
-    <%= form.number_field :base_item_id %>
-  </div>
-
-  <div>
-    <%= form.label :child_item_id, style: "display: block" %>
-    <%= form.number_field :child_item_id %>
+    <%= form.collection_select(:base_item_id, Item.available, 'id', 'name',  {prompt: 'Select Item'}) %>
   </div>
 
   <div>
@@ -27,12 +22,17 @@
   </div>
 
   <div>
+    <%= form.label :child_item_id, style: "display: block" %>
+    <%= form.collection_select(:child_item_id, Item.available, 'id', 'name',  {prompt: 'Select Item'}) %>
+  </div>
+
+  <div>
     <%= form.label :child_item_quantity, style: "display: block" %>
     <%= form.number_field :child_item_quantity %>
   </div>
 
   <div>
-    <%= form.label :discount_percent, style: "display: block" %>
+    <%= form.label :discount, style: "display: block" %>
     <%= form.number_field :discount_percent %>
   </div>
 

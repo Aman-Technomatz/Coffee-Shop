@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Tax categories</h1>
+
+<div id="tax_categories">
+  <% @tax_categories.each do |tax_category| %>
+    <%= render tax_category %>
+    <p>
+      <%= link_to "Show this tax category", tax_category %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New tax category", new_tax_category_path %>

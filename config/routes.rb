@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
+  resources :tax_categories
   resources :discounts
-  resources :taxes
   resources :orders
   root "items#index"
   resources :items

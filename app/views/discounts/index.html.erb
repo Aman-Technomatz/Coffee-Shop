@@ -1,14 +1,30 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Discounts</h1>
-
-<div id="discounts">
-  <% @discounts.each do |discount| %>
-    <%= render discount %>
-    <p>
-      <%= link_to "Show this discount", discount %>
-    </p>
-  <% end %>
-</div>
-
 <%= link_to "New discount", new_discount_path %>
+<br>
+
+
+  <div class="container">
+    <table class="table">
+      <thead>
+        <tr class='border'>
+          <th scope="col" class='border' >Base item</th>
+          <th scope="col" class='border' >Base item quantity</th>
+          <th scope="col" class='border' >Child item</th>
+          <th scope="col" class='border' >Child item quantity</th>
+          <th scope="col" class='border' >Discount</th>
+          <th scope="col" class='border' >Show</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @discounts.each do |discount| %>
+          <tr>
+            <th scope="col" class='border' ><%= discount.base_item.name %></th>
+            <td scope="col" class='border' ><%= discount.base_item_quantity %></td>
+            <td scope="col" class='border' ><%= discount.child_item.name %></td>
+            <td scope="col" class='border' ><%= discount.child_item_quantity %></td>
+            <td scope="col" class='border' ><%= discount.discount_percent %></td>
+            <td scope="col" class='border' ><%= link_to "Show this discount", discount %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>

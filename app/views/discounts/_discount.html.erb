@@ -1,12 +1,7 @@
 <div id="<%= dom_id discount %>">
   <p>
     <strong>Base item:</strong>
-    <%= discount.base_item_id %>
-  </p>
-
-  <p>
-    <strong>Child item:</strong>
-    <%= discount.child_item_id %>
+    <%= discount.base_item.name %>
   </p>
 
   <p>
@@ -15,12 +10,17 @@
   </p>
 
   <p>
+    <strong>Child item:</strong>
+    <%= discount.child_item.name %>
+  </p>
+
+  <p>
     <strong>Child item quantity:</strong>
     <%= discount.child_item_quantity %>
   </p>
 
   <p>
-    <strong>Discount percent:</strong>
+    <strong>Discount:</strong>
     <%= discount.discount_percent %>
   </p>
 
