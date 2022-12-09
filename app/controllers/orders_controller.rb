@@ -99,6 +99,7 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       if @order.save
+        OrderMailer.send_order_mail(@order).deliver_later!(wait: 5.minutes)
         format.html { redirect_to order_url(@order), notice: "Order was successfully Created." }
       else
         format.html { render :new, status: :unprocessable_entity }
