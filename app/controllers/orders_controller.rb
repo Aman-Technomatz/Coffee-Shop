@@ -82,16 +82,18 @@ class OrdersController < ApplicationController
           discount_id, discount_multiplier = discount_arr
           discount = Discount.find(discount_id)
           order_item = @order.order_items.select{ |oi| oi.item_id == discount.child_item_id }.first
-          t_qty = order_item.quantity
-          d_qty = discount.child_item_quantity * discount_multiplier
-          d_qty = (d_qty >= t_qty) ? t_qty : d_qty
-          item = Item.find_by(id: discount.child_item_id)
-          t_order_item_total = item.price * t_qty
-          d_order_item_total = (item.price * d_qty * discount.discount_percent) / 100
-          total = (t_order_item_total - d_order_item_total )
-          tax = (item.tax_category.tax_rate.to_f * total ) / 100
-          order_item.tax_value = tax
-          order_item.total_price = total + tax
+          if order_item
+            t_qty = order_item.quantity
+            d_qty = discount.child_item_quantity * discount_multiplier
+            d_qty = (d_qty >= t_qty) ? t_qty : d_qty
+            item = Item.find_by(id: discount.child_item_id)
+            t_order_item_total = item.price * t_qty
+            d_order_item_total = (item.price * d_qty * discount.discount_percent) / 100
+            total = (t_order_item_total - d_order_item_total )
+            tax = (item.tax_category.tax_rate.to_f * total ) / 100
+            order_item.tax_value = tax
+            order_item.total_price = total + tax
+          end
 
           discounted_items.delete(discount.child_item_id)
         end
