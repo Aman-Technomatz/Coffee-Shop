@@ -21,12 +21,12 @@
         <%= item.availability %>
       </td>
       <th scope="col">
-        <%= link_to "Edit this item", edit_item_path(@item) %> |
-        <%= link_to "Back to items", items_path %> |
-            <%= link_to "Destroy item", [@item], data: {
+        <%= link_to "Back to items", items_path, :class => 'btn btn-secondary' %> |
+        <%= link_to "Edit this item", edit_item_path(@item), :class => 'btn btn-info' %> |
+        <%= link_to "Destroy item", [@item], data: {
                                       turbo_method: :delete,
                                       turbo_confirm: "Are you sure?"
-                                      } %>
+                                      }, :class => 'btn btn-danger' %>
       </th>
     </tr>
   </tbody>

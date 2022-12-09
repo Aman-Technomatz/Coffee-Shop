@@ -1,16 +1,18 @@
-<h1>Tax Categories</h1>
-<br>
-<div class="col d-flex justify-content-center">
-  <div class="card" style="width: 18rem; ">
-    <div class="card-header" style="color: purple; text-align:center;">
-      <%= link_to "Tax Category", new_tax_category_path, :class => 'list-group-item' %>
-    </div>
-    <ul class="list-group list-group-flush">
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr class='border'>
+        <th scope="col" class='border' >Tax Percent</th>
+        <th scope="col" class='border' >Action</th>
+      </tr>
+    </thead>
+    <tbody>
       <% @tax_categories.each do |tax_category| %>
-        <li>
-          <%= link_to tax_category.tax_rate, tax_category, :class => 'list-group-item' %>
-        </li>
+        <tr >
+          <th scope="col" class='border' ><%= tax_category.tax_rate%></th>
+          <td scope="col" class='border' ><%= link_to "Show", tax_category, :class => 'btn btn-info' %></td>
+        </tr>
       <% end %>
-    </ul>
-  </div>
+    </tbody>
+  </table>
 </div>

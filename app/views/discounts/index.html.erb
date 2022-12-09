@@ -1,4 +1,4 @@
-<%= link_to "New discount", new_discount_path %>
+<%= link_to "New discount", new_discount_path, :class => 'btn btn-secondary' %>
 <br>
 
 
@@ -22,7 +22,7 @@
             <td scope="col" class='border' ><%= discount.child_item.name %></td>
             <td scope="col" class='border' ><%= discount.child_item_quantity %></td>
             <td scope="col" class='border' ><%= discount.discount_percent %></td>
-            <td scope="col" class='border' ><%= link_to "Show this discount", discount %></td>
+            <td scope="col" class='border' ><%= link_to "Show this discount", discount, :class => 'btn btn-info' %></td>
           </tr>
         <% end %>
       </tbody>

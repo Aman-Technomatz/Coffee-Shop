@@ -16,10 +16,6 @@ class OrdersController < ApplicationController
     @order.order_items.build
   end
 
-  # GET /items/1/edit
-  def edit
-  end
-
   # POST /items or /items.json
   def create
     @order = Order.new(order_params)

@@ -10,33 +10,29 @@
       </ul>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :base_item_id, style: "display: block" %>
-    <%= form.collection_select(:base_item_id, Item.available, 'id', 'name',  {prompt: 'Select Item'}) %>
-  </div>
-
-  <div>
-    <%= form.label :base_item_quantity, style: "display: block" %>
-    <%= form.number_field :base_item_quantity %>
-  </div>
-
-  <div>
-    <%= form.label :child_item_id, style: "display: block" %>
-    <%= form.collection_select(:child_item_id, Item.available, 'id', 'name',  {prompt: 'Select Item'}) %>
-  </div>
-
-  <div>
-    <%= form.label :child_item_quantity, style: "display: block" %>
-    <%= form.number_field :child_item_quantity %>
-  </div>
-
-  <div>
-    <%= form.label :discount, style: "display: block" %>
-    <%= form.number_field :discount_percent %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
+  <form class="row g-3">
+    <div class="col-md-4">
+      <label for="inputState" class="form-label">Base Quantity</label>
+      <%= form.collection_select(:base_item_id, Item.available, 'id', 'name',  {prompt: 'Select Item'}, { class: "form-select" }) %>
+    </div>
+    <div class="col-md-4">
+      <label for="inputAddress" class="form-label">Base Item</label>
+      <%= form.number_field :base_item_quantity, {class: 'form-control'} %>
+    </div>
+    <div class="col-md-4">
+      <label for="inputState" class="form-label">Child Quantity</label>
+      <%= form.collection_select(:child_item_id, Item.available, 'id', 'name',  {prompt: 'Select Item'}, { class: "form-select" }) %>
+    </div>
+    <div class="col-md-4">
+      <label for="inputAddress2" class="form-label">Child Item</label>
+      <%= form.number_field :child_item_quantity, {class: 'form-control'} %>
+    </div>
+    <div class="col-md-4">
+      <label for="inputAddress2" class="form-label">Discount</label>
+      <%= form.number_field :discount_percent, {class: 'form-control'} %>
+    </div>
+    <div class="col-12">
+      <%= form.submit :class => 'btn btn-primary' %>
+    </div>
+  </form>
 <% end %>

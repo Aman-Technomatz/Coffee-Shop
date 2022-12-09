@@ -4,8 +4,6 @@
       <tr>
         <th scope="col" colspan='4' class='border' >Action</th>
         <td scope="col" colspan='2' class='border' >
-          <%= link_to "Edit", edit_order_path(@order) %>
-            |
           <%= link_to "Destroy", order_path(@order), data: {
             turbo_method: :delete,
             turbo_confirm: "Are you sure?"

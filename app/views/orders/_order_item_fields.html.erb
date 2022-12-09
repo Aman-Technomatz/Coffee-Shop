@@ -1,17 +1,23 @@
- <div class='nested-feilds'>
+<div class='nested-feilds'>
   <div class="card" style="width: 18rem ">
     <div class="card-body">
       <div class="field" data-base_item_id = <%= Discount.pluck(:base_item_id) %>>
-        <%= order_form.label :item %><br>
-        <%= order_form.collection_select(:item_id, Item.available, 'id', 'name',  {prompt: 'Select Item'}, {class: "select"}) %>
-        <%= content_tag "div", id: "discounts", data: {discounts: Discount.pluck(:base_item_id), disc_quant: Discount.pluck(:base_item_quantity) } do %>
+        <div class="col-12">
+          <label for="inputAddress" class="form-label">Item</label>
+        </div>
+        <div class="col-12">
+        <%= order_form.collection_select(:item_id, Item.available, 'id', 'name', {prompt: 'Select Item'}, { class: "form-select" }) %>
+        <% content_tag "div", id: "discounts", data: {discounts: Discount.pluck(:base_item_id), disc_quant: Discount.pluck(:base_item_quantity) } do %>
         <% end %>
+        </div>
       </div>
-      <div class="field" id="onchange">
-        <%= order_form.label :quantity %><br>
-        <%= order_form.number_field :quantity, class: 'quantity' %>
+      <div class="col-12">
+        <label for="inputAddress" class="form-label">Quantity</label>
+      </div>
+      <div class="col-12" id="onchange">
+        <%= order_form.number_field :quantity, {class: 'form-control'} %>
       </div>
     </div>
     <%= link_to 'Remove Item', '#', class: 'remove_order_item' %>
   </div>
- </div>
+</div>

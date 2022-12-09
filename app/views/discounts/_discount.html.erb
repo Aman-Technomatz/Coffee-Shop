@@ -1,27 +1,29 @@
-<div id="<%= dom_id discount %>">
-  <p>
-    <strong>Base item:</strong>
-    <%= discount.base_item.name %>
-  </p>
-
-  <p>
-    <strong>Base item quantity:</strong>
-    <%= discount.base_item_quantity %>
-  </p>
-
-  <p>
-    <strong>Child item:</strong>
-    <%= discount.child_item.name %>
-  </p>
-
-  <p>
-    <strong>Child item quantity:</strong>
-    <%= discount.child_item_quantity %>
-  </p>
-
-  <p>
-    <strong>Discount:</strong>
-    <%= discount.discount_percent %>
-  </p>
-
-</div>
+<table class="table caption-top">
+  <thead>
+    <tr>
+      <th>Base item</th>
+      <th>Base item quantity</th>
+      <th>Child item</th>
+      <th>Child item quantity</th>
+      <th>Discount</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td scope="col"><%= discount.base_item.name %></td>
+      <td scope="col"><%= discount.base_item_quantity %></td>
+      <td><%= discount.child_item.name %></td>
+      <td><%= discount.child_item_quantity %></td>
+      <td><%= discount.discount_percent %></td>
+      <th scope="col">
+        <%= link_to "Back to items", discounts_path, :class => 'btn btn-secondary' %> |
+        <%= link_to "Edit this item", edit_discount_path(@discount), :class => 'btn btn-info' %> |
+        <%= link_to "Destroy discount", [@discount], data: {
+                                      turbo_method: :delete,
+                                      turbo_confirm: "Are you sure?"
+                                      }, :class => 'btn btn-danger' %>
+      </th>
+    </tr>
+  </tbody>
+</table>
