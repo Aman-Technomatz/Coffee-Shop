@@ -1,14 +1,16 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Tax categories</h1>
-
-<div id="tax_categories">
-  <% @tax_categories.each do |tax_category| %>
-    <%= render tax_category %>
-    <p>
-      <%= link_to "Show this tax category", tax_category %>
-    </p>
-  <% end %>
+<h1>Tax Categories</h1>
+<br>
+<div class="col d-flex justify-content-center">
+  <div class="card" style="width: 18rem; ">
+    <div class="card-header" style="color: purple; text-align:center;">
+      <%= link_to "Tax Category", new_tax_category_path, :class => 'list-group-item' %>
+    </div>
+    <ul class="list-group list-group-flush">
+      <% @tax_categories.each do |tax_category| %>
+        <li>
+          <%= link_to tax_category.tax_rate, tax_category, :class => 'list-group-item' %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 </div>
-
-<%= link_to "New tax category", new_tax_category_path %>

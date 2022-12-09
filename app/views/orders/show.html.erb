@@ -15,7 +15,9 @@
       <tr>
         <th scope="col" class='border' >Name</th>
         <th scope="col" class='border' >Price</th>
+        <th scope="col" class='border' >Tax Percent</th>
         <th scope="col" class='border' >Quantity</th>
+        <th scope="col" class='border' >Tax Value</th>
         <th scope="col" class='border' >Total</th>
       </tr>
     </thead>
@@ -24,7 +26,9 @@
         <tr >
           <th scope="col" class='border'><%= order_item.item.name %></th>
           <td scope="col" class='border' ><%= order_item.item.price %></td>
+          <td scope="col" class='border' ><%= order_item.item.tax_category.tax_rate %></td>
           <td scope="col" class='border' ><%= order_item.quantity %></td>
+          <td scope="col" class='border' ><%= order_item.tax_value %></td>
           <td scope="col" class='border' ><%= order_item.total_price %></td>
         </tr>
       <% end %>
