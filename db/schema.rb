@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_09_055411) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_09_065621) do
+  create_table "discounts", force: :cascade do |t|
+    t.integer "base_item_id"
+    t.integer "child_item_id"
+    t.integer "base_item_quantity"
+    t.integer "child_item_quantity"
+    t.integer "discount_percent"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.integer "price"
@@ -33,6 +43,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_055411) do
 
   create_table "orders", force: :cascade do |t|
     t.decimal "grand_total"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "taxes", force: :cascade do |t|
+    t.float "tax_rate"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
