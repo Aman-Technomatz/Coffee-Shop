@@ -18,82 +18,46 @@ class OrdersController < ApplicationController
 
   # POST /items or /items.json
   def create
+    discounted_items = {}
     @order = Order.new(order_params)
     order_items = @order.order_items
+    order_items.each do |oi|
+      discount = Discount.find_by(base_item_id: oi.item_id)
+      if discount.present? && oi.quantity >= discount.base_item_quantity
 
-      discounted_items = {}
-      order_items.each do |oi|
-        # check if already eligible for discount
-        if discounted_items[oi.item.id]    # item_id_qty_mapping = {}
-          t_qty = oi.quantity
-          discount = Discount.find(discounted_items[oi.item.id].first)
-          discount_multiplier = discounted_items[oi.item.id].last
-          d_qty = discount.child_item_quantity * discount_multiplier
-          d_qty = (d_qty >= t_qty) ? t_qty : d_qty
-          r_oi_total = oi.item.price * t_qty
-          d_oi_total = oi.item.price * d_qty * discount.discount_percent/100
-          total = (r_oi_total - d_oi_total)
-          tax = (oi.item.tax_category.tax_rate.to_f * total ) / 100
-          oi.tax_value = tax
-          oi.total_price = total + tax
+        qty_multiplier = (discount.base_item_id == discount.child_item_id) ? 2 : 1
+        discount_multiplier = oi.quantity / (discount.base_item_quantity * qty_multiplier)
 
-          discounted_items.delete(oi.item.id)
+        d_total_qty_cal = discount.child_item_quantity * discount_multiplier
+        d_total_qty_cal = d_total_qty_cal >= oi.quantity ? oi.quantity : d_total_qty_cal
 
-        else
-          discount = Discount.find_by(base_item_id: oi.item_id)
-          if discount
-            # check if we have desired qty of base item to give discount
-              if oi.quantity >= discount.base_item_quantity
-              # check for child item in the order_items and apply/flag for discount
-              discount_multiplier = oi.quantity / discount.base_item_quantity
-              discounted_items[discount.child_item_id] = [discount.id, discount_multiplier]
-              # perform billing calcalation for base item
-              # order item price calculation
-              total = oi.item.price * oi.quantity
-              tax = (oi.item.tax_category.tax_rate.to_f * total ) / 100
-              oi.tax_value = tax
-              oi.total_price = total + tax
-            else
-              #discount will not be applied
-              # order item price calculation
-              total = oi.item.price * oi.quantity
-              tax = (oi.item.tax_category.tax_rate.to_f * total ) / 100
-              oi.tax_value = tax
-              oi.total_price = total + tax
-
-            end
-          else
-            #discount will not be applied
-            # order item price calculation
-            total = oi.item.price * oi.quantity
-            tax = (oi.item.tax_category.tax_rate.to_f * total ) / 100
-            oi.tax_value = tax
-            oi.total_price = total + tax
-          end
-        end
+        d_total_qty = (d_total_qty_cal * discount.discount_percent) / 100
+        discounted_items[discount.child_item_id] = discounted_items[discount.child_item_id] ? discounted_items[discount.child_item_id] + d_total_qty : d_total_qty
       end
+      # perform billing calcalation for base item
+      # order item price calculation
+      total = oi.item.price * oi.quantity
+      tax = (oi.item.tax_category.tax_rate.to_f * total ) / 100
+      oi.tax_value = tax
+      oi.total_price = total + tax
+    end
 
-      if discounted_items.present?
-        discounted_items.each do |_child_item_id, discount_arr|
-          discount_id, discount_multiplier = discount_arr
-          discount = Discount.find(discount_id)
-          order_item = @order.order_items.select{ |oi| oi.item_id == discount.child_item_id }.first
-          if order_item
-            t_qty = order_item.quantity
-            d_qty = discount.child_item_quantity * discount_multiplier
-            d_qty = (d_qty >= t_qty) ? t_qty : d_qty
-            item = Item.find_by(id: discount.child_item_id)
-            t_order_item_total = item.price * t_qty
-            d_order_item_total = (item.price * d_qty * discount.discount_percent) / 100
-            total = (t_order_item_total - d_order_item_total )
-            tax = (item.tax_category.tax_rate.to_f * total ) / 100
-            order_item.tax_value = tax
-            order_item.total_price = total + tax
-          end
-
-          discounted_items.delete(discount.child_item_id)
+    if discounted_items.present?
+      discounted_items.each do |child_item_id, d_total_qty|
+        order_item = @order.order_items.select{ |oi| oi.item_id == child_item_id }.first
+        if order_item
+          t_qty = order_item.quantity
+          item = Item.find(child_item_id)
+          t_order_item_total = item.price * t_qty
+          d_order_item_total = item.price * d_total_qty
+          total = (t_order_item_total - d_order_item_total)
+          tax = (item.tax_category.tax_rate.to_f * total ) / 100
+          order_item.tax_value = tax
+          order_item.total_price = total + tax
         end
+        discounted_items.delete(child_item_id)
       end
+    end
 
     respond_to do |format|
       if @order.save
