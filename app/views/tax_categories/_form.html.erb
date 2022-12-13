@@ -10,13 +10,16 @@
       </ul>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :tax_rate, style: "display: block" %>
-    <%= form.number_field :tax_rate %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
+  <form class="row g-3">
+    <div class="col-md-6">
+      <div class="col-md-4">
+        <label for="inputAddress" class="form-label">Tax Rate</label>
+        <%= form.text_field :tax_rate, {class: 'form-control'} %>
+      </div>
+      <br>
+      </div>
+    <div class="col-12">
+      <%= form.submit :class => 'btn btn-primary' %>
+    </div>
+  </form>
 <% end %>

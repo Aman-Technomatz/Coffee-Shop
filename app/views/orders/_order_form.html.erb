@@ -1,5 +1,5 @@
 <%= form_with model: @order do |order_form| %>
-  <div id="tasks"  style="display: flex">
+  <div id="tasks"  class="d-flex flex-row bd-highlight mb-3">
     <%= order_form.fields_for :order_items do |builder| %>
       <%= render 'order_item_fields', order_form: builder %>
     <% end %>
